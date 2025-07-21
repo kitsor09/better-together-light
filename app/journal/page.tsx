@@ -1,13 +1,17 @@
 import { useState, useEffect } from 'react';
 import { storageService, JournalEntry } from '../../src/utils/storage';
 import VoiceRecorder from '../../src/components/VoiceRecorder';
+import PhotoUpload from '../../src/components/PhotoUpload';
 
 export default function JournalPage() {
   const [entries, setEntries] = useState<JournalEntry[]>([]);
   const [currentEntry, setCurrentEntry] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [showVoiceRecorder, setShowVoiceRecorder] = useState(false);
+  const [showPhotoUpload, setShowPhotoUpload] = useState(false);
+  const [selectedPhotos, setSelectedPhotos] = useState<File[]>([]);
   const [audioUrls, setAudioUrls] = useState<Map<string, string>>(new Map());
+  const [photoUrls, setPhotoUrls] = useState<Map<string, string>>(new Map());
 
   useEffect(() => {
     loadEntries();
@@ -19,16 +23,34 @@ export default function JournalPage() {
       setEntries(loadedEntries);
       
       // Load audio URLs for entries with voice recordings
-      const urls = new Map<string, string>();
+      const audioUrlsMap = new Map<string, string>();
+      const photoUrlsMap = new Map<string, string>();
+      
       for (const entry of loadedEntries) {
         if (entry.voiceRecordingUrl) {
           const audioBlob = await storageService.getVoiceRecording(entry.id);
           if (audioBlob) {
-            urls.set(entry.id, URL.createObjectURL(audioBlob));
+            audioUrlsMap.set(entry.id, URL.createObjectURL(audioBlob));
+          }
+        }
+        
+        if (entry.photos && entry.photos.length > 0) {
+          const entryPhotoUrls: string[] = [];
+          for (const photoKey of entry.photos) {
+            const photoBlob = await storageService.getPhoto(photoKey);
+            if (photoBlob) {
+              const photoUrl = URL.createObjectURL(photoBlob);
+              entryPhotoUrls.push(photoUrl);
+            }
+          }
+          if (entryPhotoUrls.length > 0) {
+            photoUrlsMap.set(entry.id, entryPhotoUrls.join(','));
           }
         }
       }
-      setAudioUrls(urls);
+      
+      setAudioUrls(audioUrlsMap);
+      setPhotoUrls(photoUrlsMap);
     } catch (error) {
       console.error('Error loading journal entries:', error);
     } finally {
@@ -37,22 +59,43 @@ export default function JournalPage() {
   };
 
   const handleAddEntry = async () => {
-    if (currentEntry.trim()) {
+    if (currentEntry.trim() || selectedPhotos.length > 0) {
+      const entryId = `${Date.now()}-${Math.random()}`;
       const newEntry: JournalEntry = {
-        id: `${Date.now()}-${Math.random()}`,
+        id: entryId,
         content: currentEntry,
         timestamp: new Date()
       };
       
       try {
+        // Save photos if any
+        if (selectedPhotos.length > 0) {
+          const photoKeys: string[] = [];
+          for (const photo of selectedPhotos) {
+            const photoKey = await storageService.savePhoto(photo, entryId);
+            photoKeys.push(photoKey);
+          }
+          newEntry.photos = photoKeys;
+          
+          // Create photo URLs for immediate display
+          const photoUrls = selectedPhotos.map(photo => URL.createObjectURL(photo));
+          setPhotoUrls(prev => new Map(prev).set(entryId, photoUrls.join(',')));
+        }
+        
         await storageService.addJournalEntry(newEntry);
         setEntries([newEntry, ...entries]);
         setCurrentEntry('');
+        setSelectedPhotos([]);
+        setShowPhotoUpload(false);
       } catch (error) {
         console.error('Error adding journal entry:', error);
         alert('Failed to save entry. Please try again.');
       }
     }
+  };
+
+  const handlePhotosSelected = (photos: File[]) => {
+    setSelectedPhotos(photos);
   };
 
   const handleVoiceRecordingComplete = async (audioBlob: Blob) => {
@@ -105,15 +148,25 @@ export default function JournalPage() {
         />
         
         <div className="journal-buttons">
-          <button onClick={handleAddEntry} disabled={!currentEntry.trim()}>
-            ✍️ Add Text Entry
+          <button 
+            onClick={handleAddEntry} 
+            disabled={!currentEntry.trim() && selectedPhotos.length === 0}
+          >
+            ✍️ Add Entry
           </button>
           
           <button 
             onClick={() => setShowVoiceRecorder(!showVoiceRecorder)}
             className={showVoiceRecorder ? 'active' : ''}
           >
-            🎤 {showVoiceRecorder ? 'Cancel Voice' : 'Add Voice Note'}
+            🎤 {showVoiceRecorder ? 'Cancel Voice' : 'Voice Note'}
+          </button>
+          
+          <button 
+            onClick={() => setShowPhotoUpload(!showPhotoUpload)}
+            className={showPhotoUpload ? 'active' : ''}
+          >
+            📷 {showPhotoUpload ? 'Cancel Photos' : 'Add Photos'}
           </button>
         </div>
         
@@ -122,6 +175,15 @@ export default function JournalPage() {
             <VoiceRecorder 
               onRecordingComplete={handleVoiceRecordingComplete}
               onRecordingClear={handleVoiceRecordingClear}
+            />
+          </div>
+        )}
+        
+        {showPhotoUpload && (
+          <div className="photo-upload-section">
+            <PhotoUpload 
+              onPhotosSelected={handlePhotosSelected}
+              maxPhotos={5}
             />
           </div>
         )}
@@ -148,6 +210,23 @@ export default function JournalPage() {
                   </div>
                 )}
                 
+                {entry.photos && entry.photos.length > 0 && photoUrls.has(entry.id) && (
+                  <div className="entry-photos">
+                    <span className="photos-label">📷 Photos:</span>
+                    <div className="photo-gallery">
+                      {photoUrls.get(entry.id)?.split(',').map((photoUrl, index) => (
+                        <img 
+                          key={index}
+                          src={photoUrl} 
+                          alt={`Photo ${index + 1}`}
+                          className="entry-photo"
+                          onClick={() => window.open(photoUrl, '_blank')}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                )}
+                
                 {entry.voiceRecordingUrl && audioUrls.has(entry.id) && (
                   <div className="entry-audio">
                     <span className="audio-label">🎤 Voice Note:</span>
@@ -157,15 +236,17 @@ export default function JournalPage() {
                   </div>
                 )}
                 
-                {entry.voiceRecordingUrl && entry.content && (
-                  <div className="entry-type">📝🎤 Text + Voice</div>
-                )}
-                {entry.voiceRecordingUrl && !entry.content && (
-                  <div className="entry-type">🎤 Voice Only</div>
-                )}
-                {!entry.voiceRecordingUrl && entry.content && (
-                  <div className="entry-type">📝 Text Only</div>
-                )}
+                <div className="entry-type">
+                  {entry.content && '📝'}
+                  {entry.photos && entry.photos.length > 0 && '📷'}
+                  {entry.voiceRecordingUrl && '🎤'}
+                  {' '}
+                  {[
+                    entry.content && 'Text',
+                    entry.photos && entry.photos.length > 0 && `${entry.photos.length} Photo${entry.photos.length > 1 ? 's' : ''}`,
+                    entry.voiceRecordingUrl && 'Voice'
+                  ].filter(Boolean).join(' + ')}
+                </div>
               </li>
             ))}
           </ul>

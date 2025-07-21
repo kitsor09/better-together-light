@@ -2,11 +2,12 @@ import { useState, useEffect } from 'react'
 import FantasyPage from '../app/fantasy/page'
 import JournalPage from '../app/journal/page'
 import QuizPage from '../app/quiz/page'
+import CalendarPage from '../app/calendar/page'
 import PinLock from './components/PinLock'
 import { storageService } from './utils/storage'
 import './App.css'
 
-type Page = 'home' | 'fantasy' | 'journal' | 'quiz'
+type Page = 'home' | 'fantasy' | 'journal' | 'quiz' | 'calendar' | 'cycle' | 'moon'
 
 function App() {
   const [currentPage, setCurrentPage] = useState<Page>('home')
@@ -74,12 +75,46 @@ function App() {
         return <JournalPage />
       case 'quiz':
         return <QuizPage />
+      case 'calendar':
+        return <CalendarPage />
+      case 'cycle':
+        return <div>🌸 Cycle tracking coming soon...</div>
+      case 'moon':
+        return <div>🌙 Moon cycle rituals coming soon...</div>
       default:
         return (
           <main style={{ padding: '2rem', fontFamily: 'sans-serif' }}>
             <h1>Welcome to Better Together</h1>
             <p>Let's explore love, connection, and desire privately.</p>
-            <p>Built with love by Kitso.</p>
+            <div className="feature-grid">
+              <div className="feature-card" onClick={() => setCurrentPage('journal')}>
+                <h3>📓 Journal</h3>
+                <p>Write thoughts, add voice notes & photos</p>
+              </div>
+              <div className="feature-card" onClick={() => setCurrentPage('calendar')}>
+                <h3>📅 Calendar</h3>
+                <p>Track events, dates & reminders</p>
+              </div>
+              <div className="feature-card" onClick={() => setCurrentPage('cycle')}>
+                <h3>🌸 Cycle Tracking</h3>
+                <p>Monitor wellness & patterns</p>
+              </div>
+              <div className="feature-card" onClick={() => setCurrentPage('moon')}>
+                <h3>🌙 Moon Rituals</h3>
+                <p>Align with lunar cycles</p>
+              </div>
+              <div className="feature-card" onClick={() => setCurrentPage('fantasy')}>
+                <h3>🔥 Fantasy Builder</h3>
+                <p>Create intimate stories together</p>
+              </div>
+              <div className="feature-card" onClick={() => setCurrentPage('quiz')}>
+                <h3>💬 Couples Quiz</h3>
+                <p>Discover each other deeper</p>
+              </div>
+            </div>
+            <p style={{ textAlign: 'center', marginTop: '2rem', color: '#666' }}>
+              Built with love by Kitso. 💝
+            </p>
           </main>
         )
     }
@@ -99,28 +134,49 @@ function App() {
           <button 
             onClick={() => setCurrentPage('home')}
             className={currentPage === 'home' ? 'active' : ''}
-            style={{ marginRight: '1rem' }}
+            style={{ marginRight: '0.5rem' }}
           >
             Home
           </button>
           <button 
-            onClick={() => setCurrentPage('fantasy')}
-            className={currentPage === 'fantasy' ? 'active' : ''}
-            style={{ marginRight: '1rem' }}
-          >
-            🔥 Fantasy
-          </button>
-          <button 
             onClick={() => setCurrentPage('journal')}
             className={currentPage === 'journal' ? 'active' : ''}
-            style={{ marginRight: '1rem' }}
+            style={{ marginRight: '0.5rem' }}
           >
             📓 Journal
           </button>
           <button 
+            onClick={() => setCurrentPage('calendar')}
+            className={currentPage === 'calendar' ? 'active' : ''}
+            style={{ marginRight: '0.5rem' }}
+          >
+            📅 Calendar
+          </button>
+          <button 
+            onClick={() => setCurrentPage('cycle')}
+            className={currentPage === 'cycle' ? 'active' : ''}
+            style={{ marginRight: '0.5rem' }}
+          >
+            🌸 Cycle
+          </button>
+          <button 
+            onClick={() => setCurrentPage('moon')}
+            className={currentPage === 'moon' ? 'active' : ''}
+            style={{ marginRight: '0.5rem' }}
+          >
+            🌙 Moon
+          </button>
+          <button 
+            onClick={() => setCurrentPage('fantasy')}
+            className={currentPage === 'fantasy' ? 'active' : ''}
+            style={{ marginRight: '0.5rem' }}
+          >
+            🔥 Fantasy
+          </button>
+          <button 
             onClick={() => setCurrentPage('quiz')}
             className={currentPage === 'quiz' ? 'active' : ''}
-            style={{ marginRight: '1rem' }}
+            style={{ marginRight: '0.5rem' }}
           >
             💬 Quiz
           </button>

@@ -66,6 +66,11 @@ export default function PinLock({ onUnlock }: PinLockProps) {
       const settings: AppSettings = {
         pinHash,
         isLocked: false,
+        notifications: {
+          reminders: true,
+          cycleTracking: true,
+          moonPhases: true
+        }
       };
       
       await storageService.saveSettings(settings);
@@ -109,11 +114,11 @@ export default function PinLock({ onUnlock }: PinLockProps) {
     setError('');
   };
 
-  const formatTime = (seconds: number): string => {
-    const minutes = Math.floor(seconds / 60);
-    const remainingSeconds = seconds % 60;
-    return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
-  };
+  // const formatTime = (seconds: number): string => {
+  //   const minutes = Math.floor(seconds / 60);
+  //   const remainingSeconds = seconds % 60;
+  //   return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
+  // };
 
   if (isLoading) {
     return (
