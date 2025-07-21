@@ -16,6 +16,7 @@ function App() {
   const [currentPage, setCurrentPage] = useState<Page>('home')
   const [isUnlocked, setIsUnlocked] = useState(false)
   const [isCheckingAuth, setIsCheckingAuth] = useState(true)
+  const [hasPin, setHasPin] = useState(false)
 
   useEffect(() => {
     checkAuthStatus();
@@ -24,8 +25,11 @@ function App() {
   const checkAuthStatus = async () => {
     try {
       const settings = await storageService.getSettings();
+      const pinExists = !!settings.pinHash;
+      setHasPin(pinExists);
+      
       // If no PIN is set, consider it unlocked
-      if (!settings.pinHash) {
+      if (!pinExists) {
         setIsUnlocked(true);
       } else {
         // If PIN is set but app is not locked, keep unlocked
@@ -41,6 +45,8 @@ function App() {
 
   const handleUnlock = () => {
     setIsUnlocked(true);
+    // Refresh PIN status after unlock (in case PIN was just set)
+    checkAuthStatus();
   };
 
   const handleLock = async () => {
@@ -48,6 +54,9 @@ function App() {
       const settings = await storageService.getSettings();
       if (settings.pinHash) {
         await storageService.saveSettings({ ...settings, isLocked: true });
+        setIsUnlocked(false);
+      } else {
+        // No PIN set, force user to set one up
         setIsUnlocked(false);
       }
     } catch (error) {
@@ -202,9 +211,9 @@ function App() {
           <button 
             onClick={handleLock}
             className="lock-button"
-            title="Lock App"
+            title={hasPin ? "Lock App" : "Set PIN & Lock"}
           >
-            🔒 Lock
+            {hasPin ? "🔒 Lock" : "🔒 Set PIN"}
           </button>
         </div>
       </nav>
