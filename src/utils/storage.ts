@@ -42,6 +42,17 @@ export interface CycleData {
   notes?: string;
 }
 
+export interface CycleSettings {
+  averageCycleLength: number; // Default 28 days
+  averagePeriodLength: number; // Default 5 days
+  lastPeriodStart?: Date;
+  notifications: {
+    periodReminder: boolean;
+    ovulationReminder: boolean;
+    pmsReminder: boolean;
+  };
+}
+
 export interface MoonPhase {
   phase: 'new' | 'waxing_crescent' | 'first_quarter' | 'waxing_gibbous' | 'full' | 'waning_gibbous' | 'last_quarter' | 'waning_crescent';
   date: Date;
@@ -126,6 +137,7 @@ class StorageService {
   private templatesKey = 'fantasy_templates';
   private quizzesKey = 'custom_quizzes';
   private quizSessionsKey = 'quiz_sessions';
+  private cycleSettingsKey = 'cycle_settings';
 
   // Journal operations
   async getJournalEntries(): Promise<JournalEntry[]> {
@@ -291,6 +303,42 @@ class StorageService {
       await this.saveCycleData(cycles);
     } catch (error) {
       console.error('Error adding cycle entry:', error);
+      throw error;
+    }
+  }
+
+  // Cycle settings operations
+  async getCycleSettings(): Promise<CycleSettings> {
+    try {
+      const settings = await localforage.getItem<CycleSettings>(this.cycleSettingsKey);
+      return settings || {
+        averageCycleLength: 28,
+        averagePeriodLength: 5,
+        notifications: {
+          periodReminder: true,
+          ovulationReminder: true,
+          pmsReminder: true
+        }
+      };
+    } catch (error) {
+      console.error('Error loading cycle settings:', error);
+      return {
+        averageCycleLength: 28,
+        averagePeriodLength: 5,
+        notifications: {
+          periodReminder: true,
+          ovulationReminder: true,
+          pmsReminder: true
+        }
+      };
+    }
+  }
+
+  async saveCycleSettings(settings: CycleSettings): Promise<void> {
+    try {
+      await localforage.setItem(this.cycleSettingsKey, settings);
+    } catch (error) {
+      console.error('Error saving cycle settings:', error);
       throw error;
     }
   }

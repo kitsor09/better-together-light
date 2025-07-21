@@ -3,6 +3,7 @@ import FantasyPage from '../app/fantasy/page'
 import JournalPage from '../app/journal/page'
 import QuizPage from '../app/quiz/page'
 import CalendarPage from '../app/calendar/page'
+import CycleTrackerPage from '../app/cycle/page'
 import MoonCyclePage from '../app/moon/page'
 import PinLock from './components/PinLock'
 import { storageService } from './utils/storage'
@@ -79,7 +80,7 @@ function App() {
       case 'calendar':
         return <CalendarPage />
       case 'cycle':
-        return <div>🌸 Cycle tracking coming soon...</div>
+        return <CycleTrackerPage />
       case 'moon':
         return <MoonCyclePage />
       default:
