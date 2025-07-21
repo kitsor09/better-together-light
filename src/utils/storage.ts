@@ -68,6 +68,40 @@ export interface GeneratedStory {
   isFavorite: boolean;
 }
 
+export interface QuizQuestion {
+  id: string;
+  text: string;
+  type: 'text' | 'choice';
+  choices?: string[];
+}
+
+export interface Quiz {
+  id: string;
+  title: string;
+  category: 'shared' | 'for-him' | 'for-her' | 'fantasy';
+  description: string;
+  questions: QuizQuestion[];
+  isCustom?: boolean;
+}
+
+export interface QuizResponse {
+  id: string;
+  quizId: string;
+  questionId: string;
+  answer: string;
+  timestamp: Date;
+  respondent?: 'him' | 'her';
+}
+
+export interface QuizSession {
+  id: string;
+  quizId: string;
+  startedAt: Date;
+  completedAt?: Date;
+  responses: QuizResponse[];
+  participants: ('him' | 'her')[];
+}
+
 export interface AppSettings {
   pinHash?: string;
   isLocked: boolean;
@@ -90,6 +124,9 @@ class StorageService {
   private cycleDataKey = 'cycle_data';
   private storiesKey = 'generated_stories';
   private templatesKey = 'fantasy_templates';
+  private quizzesKey = 'custom_quizzes';
+  private quizSessionsKey = 'quiz_sessions';
+  private quizResponsesKey = 'quiz_responses';
 
   // Journal operations
   async getJournalEntries(): Promise<JournalEntry[]> {
@@ -327,6 +364,65 @@ class StorageService {
         scenarios: ['Preparing oils', 'Gentle massage', 'Relaxation', 'Connection']
       }
     ];
+  }
+
+  // Quiz operations
+  async getCustomQuizzes(): Promise<Quiz[]> {
+    try {
+      const quizzes = await localforage.getItem<Quiz[]>(this.quizzesKey);
+      return quizzes || [];
+    } catch (error) {
+      console.error('Error loading custom quizzes:', error);
+      return [];
+    }
+  }
+
+  async saveCustomQuizzes(quizzes: Quiz[]): Promise<void> {
+    try {
+      await localforage.setItem(this.quizzesKey, quizzes);
+    } catch (error) {
+      console.error('Error saving custom quizzes:', error);
+      throw error;
+    }
+  }
+
+  async addCustomQuiz(quiz: Quiz): Promise<void> {
+    try {
+      const quizzes = await this.getCustomQuizzes();
+      quizzes.unshift(quiz);
+      await this.saveCustomQuizzes(quizzes);
+    } catch (error) {
+      console.error('Error adding custom quiz:', error);
+      throw error;
+    }
+  }
+
+  async getQuizSessions(): Promise<QuizSession[]> {
+    try {
+      const sessions = await localforage.getItem<QuizSession[]>(this.quizSessionsKey);
+      return sessions || [];
+    } catch (error) {
+      console.error('Error loading quiz sessions:', error);
+      return [];
+    }
+  }
+
+  async saveQuizSession(session: QuizSession): Promise<void> {
+    try {
+      const sessions = await this.getQuizSessions();
+      const existingIndex = sessions.findIndex(s => s.id === session.id);
+      
+      if (existingIndex >= 0) {
+        sessions[existingIndex] = session;
+      } else {
+        sessions.unshift(session);
+      }
+      
+      await localforage.setItem(this.quizSessionsKey, sessions);
+    } catch (error) {
+      console.error('Error saving quiz session:', error);
+      throw error;
+    }
   }
 
   // Clear all data

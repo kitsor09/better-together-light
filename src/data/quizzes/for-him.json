@@ -1,0 +1,33 @@
+{
+  "id": "for-him",
+  "title": "👨‍🦱 For Him",
+  "category": "for-him",
+  "description": "Questions to understand him deeper",
+  "questions": [
+    {
+      "id": "him-1",
+      "text": "What are the 3 things you wish I understood more about you?",
+      "type": "text"
+    },
+    {
+      "id": "him-2",
+      "text": "How do you want to be supported when you're stressed?",
+      "type": "text"
+    },
+    {
+      "id": "him-3",
+      "text": "What kind of physical intimacy makes you feel most desired?",
+      "type": "text"
+    },
+    {
+      "id": "him-4",
+      "text": "What's one goal you want us to work on as a couple?",
+      "type": "text"
+    },
+    {
+      "id": "him-5",
+      "text": "If you could relive one moment with me, what would it be?",
+      "type": "text"
+    }
+  ]
+}

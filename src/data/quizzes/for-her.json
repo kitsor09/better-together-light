@@ -1,0 +1,33 @@
+{
+  "id": "for-her",
+  "title": "👩‍🦰 For Her",
+  "category": "for-her",
+  "description": "Questions to understand her deeper",
+  "questions": [
+    {
+      "id": "her-1",
+      "text": "What makes you feel the most emotionally seen?",
+      "type": "text"
+    },
+    {
+      "id": "her-2",
+      "text": "How can I support you better during your moon cycle?",
+      "type": "text"
+    },
+    {
+      "id": "her-3",
+      "text": "What's one secret dream you have for our relationship?",
+      "type": "text"
+    },
+    {
+      "id": "her-4",
+      "text": "When do you feel the most beautiful around me?",
+      "type": "text"
+    },
+    {
+      "id": "her-5",
+      "text": "What turns you on mentally or emotionally that I might not know?",
+      "type": "text"
+    }
+  ]
+}

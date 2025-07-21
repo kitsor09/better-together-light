@@ -1,0 +1,33 @@
+{
+  "id": "fantasy-her",
+  "title": "🖤 For Her (Sensual)",
+  "category": "fantasy",
+  "description": "Sensual focus questions",
+  "questions": [
+    {
+      "id": "fantasy-her-1",
+      "text": "What makes you feel irresistibly sexy?",
+      "type": "text"
+    },
+    {
+      "id": "fantasy-her-2",
+      "text": "How do you want me to take the lead during intimacy?",
+      "type": "text"
+    },
+    {
+      "id": "fantasy-her-3",
+      "text": "Is there a fantasy where you feel fully surrendered and safe?",
+      "type": "text"
+    },
+    {
+      "id": "fantasy-her-4",
+      "text": "Would you ever want to explore something taboo or forbidden (with trust)?",
+      "type": "text"
+    },
+    {
+      "id": "fantasy-her-5",
+      "text": "How would you want a \"stranger encounter\" to unfold in your imagination?",
+      "type": "text"
+    }
+  ]
+}

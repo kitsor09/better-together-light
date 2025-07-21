@@ -1,0 +1,33 @@
+{
+  "id": "shared",
+  "title": "💑 Better Together",
+  "category": "shared",
+  "description": "Deep questions to explore together",
+  "questions": [
+    {
+      "id": "shared-1",
+      "text": "What does \"being better together\" mean to you today?",
+      "type": "text"
+    },
+    {
+      "id": "shared-2",
+      "text": "What's one little moment this week that made you feel loved?",
+      "type": "text"
+    },
+    {
+      "id": "shared-3",
+      "text": "What's one thing we could do this month to feel closer?",
+      "type": "text"
+    },
+    {
+      "id": "shared-4",
+      "text": "When do you feel most emotionally connected to me?",
+      "type": "text"
+    },
+    {
+      "id": "shared-5",
+      "text": "How has our relationship helped you grow?",
+      "type": "text"
+    }
+  ]
+}
