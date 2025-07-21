@@ -2,13 +2,24 @@
 
 import { useState } from 'react';
 
+interface JournalEntry {
+  id: string;
+  content: string;
+  timestamp: Date;
+}
+
 export default function JournalPage() {
-  const [entries, setEntries] = useState<string[]>([]);
+  const [entries, setEntries] = useState<JournalEntry[]>([]);
   const [currentEntry, setCurrentEntry] = useState('');
 
   const handleAddEntry = () => {
     if (currentEntry.trim()) {
-      setEntries([currentEntry, ...entries]);
+      const newEntry: JournalEntry = {
+        id: `${Date.now()}-${Math.random()}`,
+        content: currentEntry,
+        timestamp: new Date()
+      };
+      setEntries([newEntry, ...entries]);
       setCurrentEntry('');
     }
   };
@@ -26,9 +37,12 @@ export default function JournalPage() {
       <br />
       <button onClick={handleAddEntry}>Add Entry</button>
       <ul>
-        {entries.map((entry, idx) => (
-          <li key={idx} style={{ marginTop: '1rem', whiteSpace: 'pre-wrap' }}>
-            {entry}
+        {entries.map((entry) => (
+          <li key={entry.id} style={{ marginTop: '1rem', whiteSpace: 'pre-wrap' }}>
+            <div style={{ fontSize: '0.8em', color: '#666', marginBottom: '0.5rem' }}>
+              {entry.timestamp.toLocaleString()}
+            </div>
+            {entry.content}
           </li>
         ))}
       </ul>
