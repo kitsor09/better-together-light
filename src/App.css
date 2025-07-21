@@ -1388,3 +1388,294 @@ li {
     flex-direction: column;
   }
 }
+
+/* Moon Cycle Styles */
+.moon-cycle-container {
+  padding: 2rem;
+  font-family: inherit;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.moon-cycle-header {
+  text-align: center;
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background: rgba(255, 248, 220, 0.8);
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 218, 185, 0.3);
+}
+
+.moon-cycle-header h1 {
+  margin: 0 0 0.5rem 0;
+  color: #333;
+  font-size: 2.5rem;
+}
+
+.moon-cycle-header p {
+  margin: 0 0 1.5rem 0;
+  color: #666;
+  font-style: italic;
+}
+
+.current-moon {
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 8px;
+  padding: 1rem;
+  border: 1px solid rgba(255, 218, 185, 0.4);
+}
+
+.current-moon h3 {
+  margin: 0 0 0.5rem 0;
+  color: #333;
+  font-size: 1.1rem;
+}
+
+.moon-display {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #555;
+}
+
+.moon-cycle-description {
+  margin: 2rem 0;
+}
+
+.description-card {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 12px;
+  padding: 2rem;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 218, 185, 0.4);
+  box-shadow: 0 4px 15px rgba(255, 111, 71, 0.1);
+}
+
+.description-card h2 {
+  margin: 0 0 1rem 0;
+  color: #333;
+}
+
+.description-card p {
+  margin: 0 0 1rem 0;
+  color: #666;
+  line-height: 1.6;
+}
+
+.phase-navigation {
+  margin: 2rem 0;
+}
+
+.phase-navigation h3 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.phase-tabs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.phase-tab {
+  padding: 1rem;
+  border: 2px solid rgba(255, 218, 185, 0.5);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 600;
+  font-size: 0.95rem;
+  backdrop-filter: blur(10px);
+}
+
+.phase-tab:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(255, 111, 71, 0.2);
+}
+
+.phase-tab.active {
+  border-color: rgba(255, 140, 105, 1);
+  box-shadow: 0 4px 15px rgba(255, 111, 71, 0.3);
+  transform: translateY(-2px);
+}
+
+.phase-details {
+  position: relative;
+}
+
+.phase-card {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 12px;
+  padding: 2rem;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 218, 185, 0.4);
+  border-left: 5px solid;
+  box-shadow: 0 4px 15px rgba(255, 111, 71, 0.1);
+  transition: all 0.3s ease;
+}
+
+.phase-card.hidden {
+  display: none;
+}
+
+.phase-card.active {
+  display: block;
+  animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.phase-header {
+  margin-bottom: 2rem;
+}
+
+.phase-header h2 {
+  margin: 0 0 1rem 0;
+  color: #333;
+  font-size: 1.8rem;
+}
+
+.energy-badge {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  color: white;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.phase-content {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+.focus-section, .support-section, .affirmations-section {
+  background: rgba(255, 248, 220, 0.6);
+  border-radius: 8px;
+  padding: 1.5rem;
+  border: 1px solid rgba(255, 218, 185, 0.3);
+}
+
+.focus-section h3, .support-section h3, .affirmations-section h3 {
+  margin: 0 0 1rem 0;
+  color: #333;
+  font-size: 1.2rem;
+}
+
+.focus-list, .support-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.focus-list li, .support-list li {
+  background: rgba(255, 255, 255, 0.8);
+  margin-bottom: 0.75rem;
+  padding: 1rem;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 218, 185, 0.4);
+  line-height: 1.5;
+  position: relative;
+  padding-left: 2.5rem;
+}
+
+.focus-list li::before {
+  content: '🌸';
+  position: absolute;
+  left: 1rem;
+  top: 1rem;
+}
+
+.support-list li::before {
+  content: '💝';
+  position: absolute;
+  left: 1rem;
+  top: 1rem;
+}
+
+.affirmations-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+.affirmation-card {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 8px;
+  padding: 1.5rem;
+  border: 1px solid rgba(255, 218, 185, 0.4);
+  text-align: center;
+  font-style: italic;
+  color: #555;
+  line-height: 1.5;
+  position: relative;
+  box-shadow: 0 2px 8px rgba(255, 111, 71, 0.1);
+}
+
+.quote-mark {
+  font-size: 1.5rem;
+  color: rgba(255, 140, 105, 0.8);
+  font-weight: bold;
+}
+
+.moon-cycle-footer {
+  margin-top: 3rem;
+}
+
+.wisdom-note {
+  background: rgba(255, 248, 220, 0.8);
+  border-radius: 12px;
+  padding: 2rem;
+  border: 1px solid rgba(255, 218, 185, 0.3);
+  backdrop-filter: blur(10px);
+  text-align: center;
+}
+
+.wisdom-note h3 {
+  margin: 0 0 1rem 0;
+  color: #333;
+}
+
+.wisdom-note p {
+  margin: 0 0 1rem 0;
+  color: #666;
+  line-height: 1.6;
+}
+
+.wisdom-note p:last-child {
+  margin-bottom: 0;
+}
+
+/* Moon Cycle Mobile Responsive */
+@media (max-width: 768px) {
+  .moon-cycle-container {
+    padding: 1rem;
+  }
+  
+  .phase-tabs {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+  
+  .phase-content {
+    gap: 1.5rem;
+  }
+  
+  .affirmations-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .phase-header h2 {
+    font-size: 1.5rem;
+  }
+  
+  .moon-cycle-header h1 {
+    font-size: 2rem;
+  }
+}
