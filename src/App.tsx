@@ -5,11 +5,12 @@ import QuizPage from '../app/quiz/page'
 import CalendarPage from '../app/calendar/page'
 import CycleTrackerPage from '../app/cycle/page'
 import MoonCyclePage from '../app/moon/page'
+import ChallengesPage from '../app/challenges/page'
 import PinLock from './components/PinLock'
 import { storageService } from './utils/storage'
 import './App.css'
 
-type Page = 'home' | 'fantasy' | 'journal' | 'quiz' | 'calendar' | 'cycle' | 'moon'
+type Page = 'home' | 'fantasy' | 'journal' | 'quiz' | 'calendar' | 'cycle' | 'moon' | 'challenges'
 
 function App() {
   const [currentPage, setCurrentPage] = useState<Page>('home')
@@ -83,6 +84,8 @@ function App() {
         return <CycleTrackerPage />
       case 'moon':
         return <MoonCyclePage />
+      case 'challenges':
+        return <ChallengesPage />
       default:
         return (
           <main style={{ padding: '2rem', fontFamily: 'sans-serif' }}>
@@ -112,6 +115,10 @@ function App() {
               <div className="feature-card" onClick={() => setCurrentPage('quiz')}>
                 <h3>💬 Couples Quiz</h3>
                 <p>Discover each other deeper</p>
+              </div>
+              <div className="feature-card" onClick={() => setCurrentPage('challenges')}>
+                <h3>📝 Weekly Challenges</h3>
+                <p>Create fun challenges for each other</p>
               </div>
             </div>
             <p style={{ textAlign: 'center', marginTop: '2rem', color: '#666' }}>
@@ -181,6 +188,13 @@ function App() {
             style={{ marginRight: '0.5rem' }}
           >
             💬 Quiz
+          </button>
+          <button 
+            onClick={() => setCurrentPage('challenges')}
+            className={currentPage === 'challenges' ? 'active' : ''}
+            style={{ marginRight: '0.5rem' }}
+          >
+            📝 Challenges
           </button>
         </div>
         

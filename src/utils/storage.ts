@@ -113,6 +113,23 @@ export interface QuizSession {
   participants: ('him' | 'her')[];
 }
 
+export interface Challenge {
+  id: string;
+  title: string;
+  description?: string;
+  from: 'him' | 'her';
+  to: 'him' | 'her';
+  voiceNote?: Blob;
+  voiceNoteUrl?: string;
+  dueDate: Date;
+  createdAt: Date;
+  completedAt?: Date;
+  isCompleted: boolean;
+  reflection?: string;
+  reflectionVoiceNote?: Blob;
+  reflectionVoiceNoteUrl?: string;
+}
+
 export interface AppSettings {
   pinHash?: string;
   isLocked: boolean;
@@ -138,6 +155,7 @@ class StorageService {
   private quizzesKey = 'custom_quizzes';
   private quizSessionsKey = 'quiz_sessions';
   private cycleSettingsKey = 'cycle_settings';
+  private challengesKey = 'weekly_challenges';
 
   // Journal operations
   async getJournalEntries(): Promise<JournalEntry[]> {
@@ -468,6 +486,82 @@ class StorageService {
       await localforage.setItem(this.quizSessionsKey, sessions);
     } catch (error) {
       console.error('Error saving quiz session:', error);
+      throw error;
+    }
+  }
+
+  // Challenge operations
+  async getChallenges(): Promise<Challenge[]> {
+    try {
+      const challenges = await localforage.getItem<Challenge[]>(this.challengesKey);
+      return challenges || [];
+    } catch (error) {
+      console.error('Error loading challenges:', error);
+      return [];
+    }
+  }
+
+  async saveChallenges(challenges: Challenge[]): Promise<void> {
+    try {
+      await localforage.setItem(this.challengesKey, challenges);
+    } catch (error) {
+      console.error('Error saving challenges:', error);
+      throw error;
+    }
+  }
+
+  async addChallenge(challenge: Challenge): Promise<void> {
+    try {
+      const challenges = await this.getChallenges();
+      
+      // Save voice note separately if it exists
+      if (challenge.voiceNote) {
+        const voiceKey = `${this.audioKey}challenge_${challenge.id}`;
+        await localforage.setItem(voiceKey, challenge.voiceNote);
+        challenge.voiceNoteUrl = voiceKey;
+        delete challenge.voiceNote;
+      }
+      
+      challenges.unshift(challenge);
+      await this.saveChallenges(challenges);
+    } catch (error) {
+      console.error('Error adding challenge:', error);
+      throw error;
+    }
+  }
+
+  async updateChallenge(challengeId: string, updates: Partial<Challenge>): Promise<void> {
+    try {
+      const challenges = await this.getChallenges();
+      const challengeIndex = challenges.findIndex(c => c.id === challengeId);
+      
+      if (challengeIndex === -1) {
+        throw new Error('Challenge not found');
+      }
+
+      // Handle reflection voice note
+      if (updates.reflectionVoiceNote) {
+        const voiceKey = `${this.audioKey}challenge_reflection_${challengeId}`;
+        await localforage.setItem(voiceKey, updates.reflectionVoiceNote);
+        updates.reflectionVoiceNoteUrl = voiceKey;
+        delete updates.reflectionVoiceNote;
+      }
+
+      challenges[challengeIndex] = { ...challenges[challengeIndex], ...updates };
+      await this.saveChallenges(challenges);
+    } catch (error) {
+      console.error('Error updating challenge:', error);
+      throw error;
+    }
+  }
+
+  async deleteChallenge(challengeId: string): Promise<void> {
+    try {
+      const challenges = await this.getChallenges();
+      const filteredChallenges = challenges.filter(c => c.id !== challengeId);
+      await this.saveChallenges(filteredChallenges);
+    } catch (error) {
+      console.error('Error deleting challenge:', error);
       throw error;
     }
   }
