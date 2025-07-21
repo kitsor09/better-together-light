@@ -126,7 +126,6 @@ class StorageService {
   private templatesKey = 'fantasy_templates';
   private quizzesKey = 'custom_quizzes';
   private quizSessionsKey = 'quiz_sessions';
-  private quizResponsesKey = 'quiz_responses';
 
   // Journal operations
   async getJournalEntries(): Promise<JournalEntry[]> {
