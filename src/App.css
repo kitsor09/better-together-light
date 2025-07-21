@@ -1680,8 +1680,8 @@ li {
   }
 }
 
-/* Cycle Tracker Styles */
-.cycle-tracker-container {
+/* Cycle & Moon Styles */
+.cycle-moon-container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 2rem;
@@ -1691,7 +1691,7 @@ li {
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
 
-.cycle-tracker-header {
+.cycle-moon-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -1700,11 +1700,38 @@ li {
   border-bottom: 2px solid rgba(253, 224, 198, 0.3);
 }
 
-.cycle-tracker-header h1 {
+.cycle-moon-header h1 {
   font-size: 2.5rem;
   color: #8b4513;
   margin: 0;
   font-weight: 700;
+}
+
+.view-tabs {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.tab-button {
+  padding: 0.5rem 1rem;
+  border: 2px solid rgba(253, 224, 198, 0.5);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.8);
+  color: #8b4513;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 600;
+}
+
+.tab-button:hover {
+  border-color: #ff6b6b;
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.tab-button.active {
+  background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+  color: white;
+  border-color: #ff6b6b;
 }
 
 .header-actions {
@@ -2094,11 +2121,11 @@ li {
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .cycle-tracker-container {
+  .cycle-moon-container {
     padding: 1rem;
   }
   
-  .cycle-tracker-header {
+  .cycle-moon-header {
     flex-direction: column;
     gap: 1rem;
     text-align: center;
@@ -2122,6 +2149,224 @@ li {
   
   .form-actions {
     flex-direction: column;
+  }
+}
+
+/* Overview Page Styles */
+.overview-content {
+  padding: 1rem 0;
+}
+
+.overview-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.current-status-card, .predictions-card, .guidance-card, .quick-actions-card {
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.current-status-card:hover, .predictions-card:hover, .guidance-card:hover, .quick-actions-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.current-status-card h2, .predictions-card h2, .guidance-card h2, .quick-actions-card h2 {
+  color: #8b4513;
+  margin-bottom: 1rem;
+  font-size: 1.3rem;
+}
+
+.status-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.moon-status, .cycle-status {
+  text-align: center;
+  padding: 1rem;
+  border-radius: 12px;
+  background: rgba(253, 224, 198, 0.3);
+}
+
+.moon-status h3, .cycle-status h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1rem;
+  color: #8b4513;
+}
+
+.current-moon, .current-phase {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.phase-energy {
+  font-size: 0.9rem;
+  color: #666;
+  font-style: italic;
+  margin: 0.25rem 0 0 0;
+}
+
+.mini-prediction-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.mini-prediction {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem;
+  border-radius: 8px;
+  background: rgba(253, 224, 198, 0.2);
+}
+
+.mini-prediction .label {
+  font-weight: 600;
+  color: #8b4513;
+}
+
+.mini-prediction .date {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.mini-prediction .countdown {
+  font-size: 0.8rem;
+  color: #666;
+  font-style: italic;
+}
+
+.guidance-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.guidance-content h4 {
+  color: #8b4513;
+  margin: 0 0 0.5rem 0;
+  font-size: 1rem;
+}
+
+.guidance-content ul {
+  margin: 0;
+  padding-left: 1.5rem;
+  list-style-type: disc;
+}
+
+.guidance-content li {
+  color: #555;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  margin-bottom: 0.25rem;
+}
+
+.action-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.quick-action-btn {
+  padding: 0.75rem;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  text-align: left;
+}
+
+.quick-action-btn.log-period {
+  background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+  color: white;
+}
+
+.quick-action-btn.moon-guidance {
+  background: linear-gradient(135deg, #138, #20c997);
+  color: white;
+}
+
+.quick-action-btn.view-history {
+  background: linear-gradient(135deg, #6f42c1, #8e58d6);
+  color: white;
+}
+
+.quick-action-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.tracker-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.tracker-header h2 {
+  color: #8b4513;
+  margin: 0;
+  font-size: 1.8rem;
+}
+
+.moon-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.moon-header h2 {
+  color: #8b4513;
+  margin: 0;
+  font-size: 1.8rem;
+}
+
+.current-moon-display {
+  background: rgba(253, 224, 198, 0.3);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+}
+
+.moon-phase {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #8b4513;
+}
+
+/* Responsive Design for Overview */
+@media (max-width: 768px) {
+  .overview-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .mini-prediction {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.25rem;
+  }
+  
+  .action-buttons {
+    grid-template-columns: 1fr;
+  }
+  
+  .view-tabs {
+    flex-wrap: wrap;
+  }
+  
+  .tab-button {
+    flex: 1;
+    min-width: 120px;
   }
 }
 

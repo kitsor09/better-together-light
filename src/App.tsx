@@ -3,14 +3,13 @@ import FantasyPage from '../app/fantasy/page'
 import JournalPage from '../app/journal/page'
 import QuizPage from '../app/quiz/page'
 import CalendarPage from '../app/calendar/page'
-import CycleTrackerPage from '../app/cycle/page'
-import MoonCyclePage from '../app/moon/page'
+import CycleMoonPage from '../app/cycle-moon/page'
 import ChallengesPage from '../app/challenges/page'
 import PinLock from './components/PinLock'
 import { storageService } from './utils/storage'
 import './App.css'
 
-type Page = 'home' | 'fantasy' | 'journal' | 'quiz' | 'calendar' | 'cycle' | 'moon' | 'challenges'
+type Page = 'home' | 'fantasy' | 'journal' | 'quiz' | 'calendar' | 'cycle-moon' | 'challenges'
 
 function App() {
   const [currentPage, setCurrentPage] = useState<Page>('home')
@@ -89,10 +88,8 @@ function App() {
         return <QuizPage />
       case 'calendar':
         return <CalendarPage />
-      case 'cycle':
-        return <CycleTrackerPage />
-      case 'moon':
-        return <MoonCyclePage />
+      case 'cycle-moon':
+        return <CycleMoonPage />
       case 'challenges':
         return <ChallengesPage />
       default:
@@ -109,13 +106,9 @@ function App() {
                 <h3>📅 Calendar</h3>
                 <p>Track events, dates & reminders</p>
               </div>
-              <div className="feature-card" onClick={() => setCurrentPage('cycle')}>
-                <h3>🌸 Cycle Tracking</h3>
-                <p>Monitor wellness & patterns</p>
-              </div>
-              <div className="feature-card" onClick={() => setCurrentPage('moon')}>
-                <h3>🌙 Moon Rituals</h3>
-                <p>Align with lunar cycles</p>
+              <div className="feature-card" onClick={() => setCurrentPage('cycle-moon')}>
+                <h3>🌸 Cycle & Moon</h3>
+                <p>Track cycles & align with lunar wisdom</p>
               </div>
               <div className="feature-card" onClick={() => setCurrentPage('fantasy')}>
                 <h3>🔥 Fantasy Builder</h3>
@@ -171,18 +164,11 @@ function App() {
             📅 Calendar
           </button>
           <button 
-            onClick={() => setCurrentPage('cycle')}
-            className={currentPage === 'cycle' ? 'active' : ''}
+            onClick={() => setCurrentPage('cycle-moon')}
+            className={currentPage === 'cycle-moon' ? 'active' : ''}
             style={{ marginRight: '0.5rem' }}
           >
-            🌸 Cycle
-          </button>
-          <button 
-            onClick={() => setCurrentPage('moon')}
-            className={currentPage === 'moon' ? 'active' : ''}
-            style={{ marginRight: '0.5rem' }}
-          >
-            🌙 Moon
+            🌸 Cycle & Moon
           </button>
           <button 
             onClick={() => setCurrentPage('fantasy')}
