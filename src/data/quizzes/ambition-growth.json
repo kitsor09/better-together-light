@@ -1,0 +1,33 @@
+{
+  "id": "ambition-growth",
+  "title": "💼 Ambition & Growth",
+  "category": "ambition-growth",
+  "description": "Discover your drive, goals, and paths to personal success",
+  "questions": [
+    {
+      "id": "ambition-1",
+      "text": "What achievement would make you feel most proud of yourself?",
+      "type": "text"
+    },
+    {
+      "id": "ambition-2",
+      "text": "What's the biggest challenge you want to overcome in your career or personal life?",
+      "type": "text"
+    },
+    {
+      "id": "ambition-3",
+      "text": "How do you define success, and has that definition changed over time?",
+      "type": "text"
+    },
+    {
+      "id": "ambition-4",
+      "text": "What skills or qualities do you most want to develop about yourself?",
+      "type": "text"
+    },
+    {
+      "id": "ambition-5",
+      "text": "What would you pursue if you knew you couldn't fail?",
+      "type": "text"
+    }
+  ]
+}

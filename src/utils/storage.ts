@@ -89,7 +89,7 @@ export interface QuizQuestion {
 export interface Quiz {
   id: string;
   title: string;
-  category: 'shared' | 'for-him' | 'for-her' | 'fantasy';
+  category: 'shared' | 'for-him' | 'for-her' | 'fantasy' | 'life-aspirations' | 'ambition-growth' | 'alignment-action';
   description: string;
   questions: QuizQuestion[];
   isCustom?: boolean;

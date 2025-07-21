@@ -8,6 +8,9 @@ import forHerQuiz from '../../src/data/quizzes/for-her.json';
 import fantasySharedQuiz from '../../src/data/quizzes/fantasy-shared.json';
 import fantasyHerQuiz from '../../src/data/quizzes/fantasy-her.json';
 import fantasyHimQuiz from '../../src/data/quizzes/fantasy-him.json';
+import lifeAspirationsQuiz from '../../src/data/quizzes/life-aspirations.json';
+import ambitionGrowthQuiz from '../../src/data/quizzes/ambition-growth.json';
+import alignmentActionQuiz from '../../src/data/quizzes/alignment-action.json';
 
 const prebuiltQuizzes: Quiz[] = [
   sharedQuiz as Quiz,
@@ -15,7 +18,10 @@ const prebuiltQuizzes: Quiz[] = [
   forHerQuiz as Quiz,
   fantasySharedQuiz as Quiz,
   fantasyHerQuiz as Quiz,
-  fantasyHimQuiz as Quiz
+  fantasyHimQuiz as Quiz,
+  lifeAspirationsQuiz as Quiz,
+  ambitionGrowthQuiz as Quiz,
+  alignmentActionQuiz as Quiz
 ];
 
 export default function QuizPage() {
@@ -161,6 +167,9 @@ export default function QuizPage() {
       case 'for-him': return '👨‍🦱';
       case 'for-her': return '👩‍🦰';
       case 'fantasy': return '🔥';
+      case 'life-aspirations': return '🌱';
+      case 'ambition-growth': return '💼';
+      case 'alignment-action': return '🎯';
       default: return '💬';
     }
   };
@@ -171,6 +180,9 @@ export default function QuizPage() {
       case 'for-him': return 'rgba(173, 216, 230, 0.8)';
       case 'for-her': return 'rgba(255, 192, 203, 0.8)';
       case 'fantasy': return 'rgba(255, 99, 71, 0.8)';
+      case 'life-aspirations': return 'rgba(144, 238, 144, 0.8)';
+      case 'ambition-growth': return 'rgba(255, 215, 0, 0.8)';
+      case 'alignment-action': return 'rgba(138, 43, 226, 0.8)';
       default: return 'rgba(255, 248, 220, 0.8)';
     }
   };
@@ -307,6 +319,9 @@ export default function QuizPage() {
               <option value="for-him">👨‍🦱 For Him</option>
               <option value="for-her">👩‍🦰 For Her</option>
               <option value="fantasy">🔥 Fantasy</option>
+              <option value="life-aspirations">🌱 Life Aspirations</option>
+              <option value="ambition-growth">💼 Ambition & Growth</option>
+              <option value="alignment-action">🎯 Alignment & Action</option>
             </select>
           </div>
 
