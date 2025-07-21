@@ -1,5 +1,3 @@
-use client'
-
 export default function QuizPage() {
   return (
     <main style={{ padding: '2rem', fontFamily: 'sans-serif' }}>
