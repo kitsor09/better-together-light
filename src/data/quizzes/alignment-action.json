@@ -1,0 +1,33 @@
+{
+  "id": "alignment-action",
+  "title": "🎯 Alignment & Action",
+  "category": "alignment-action",
+  "description": "Explore how your values align with your actions and choices",
+  "questions": [
+    {
+      "id": "alignment-1",
+      "text": "What are your core values, and how do they show up in your daily life?",
+      "type": "text"
+    },
+    {
+      "id": "alignment-2",
+      "text": "When do you feel most authentic and true to yourself?",
+      "type": "text"
+    },
+    {
+      "id": "alignment-3",
+      "text": "What's one area of your life where you feel out of alignment with your values?",
+      "type": "text"
+    },
+    {
+      "id": "alignment-4",
+      "text": "What action could you take today that would bring you closer to your ideal self?",
+      "type": "text"
+    },
+    {
+      "id": "alignment-5",
+      "text": "How do you know when you're making decisions from fear versus love?",
+      "type": "text"
+    }
+  ]
+}

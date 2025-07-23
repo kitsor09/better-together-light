@@ -1,0 +1,33 @@
+{
+  "id": "life-aspirations",
+  "title": "🌱 Life Aspirations",
+  "category": "life-aspirations",
+  "description": "Explore your deepest dreams and life goals together",
+  "questions": [
+    {
+      "id": "life-1",
+      "text": "What's one dream you've had since childhood that still calls to you?",
+      "type": "text"
+    },
+    {
+      "id": "life-2",
+      "text": "If you could design your ideal life 10 years from now, what would it look like?",
+      "type": "text"
+    },
+    {
+      "id": "life-3",
+      "text": "What legacy do you want to leave behind for future generations?",
+      "type": "text"
+    },
+    {
+      "id": "life-4",
+      "text": "What's something you've always wanted to learn or experience but haven't yet?",
+      "type": "text"
+    },
+    {
+      "id": "life-5",
+      "text": "How do you want to grow as a person in the next phase of your life?",
+      "type": "text"
+    }
+  ]
+}

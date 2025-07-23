@@ -1,0 +1,33 @@
+{
+  "id": "fantasy-him",
+  "title": "⚔️ For Him (Bold)",
+  "category": "fantasy",
+  "description": "Bold and vulnerable questions",
+  "questions": [
+    {
+      "id": "fantasy-him-1",
+      "text": "What kind of control or dominance turns you on — giving or receiving?",
+      "type": "text"
+    },
+    {
+      "id": "fantasy-him-2",
+      "text": "Would you want to try a scene where she's in full control?",
+      "type": "text"
+    },
+    {
+      "id": "fantasy-him-3",
+      "text": "If you could watch your partner live out a fantasy, what would it be?",
+      "type": "text"
+    },
+    {
+      "id": "fantasy-him-4",
+      "text": "Do you fantasize more about touch, visuals, or emotional power?",
+      "type": "text"
+    },
+    {
+      "id": "fantasy-him-5",
+      "text": "Would you enjoy her whispering a fantasy in your ear before acting it out?",
+      "type": "text"
+    }
+  ]
+}

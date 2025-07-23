@@ -1,0 +1,33 @@
+{
+  "id": "fantasy-shared",
+  "title": "💋 Shared Fantasy",
+  "category": "fantasy",
+  "description": "Explore desires together",
+  "questions": [
+    {
+      "id": "fantasy-shared-1",
+      "text": "If we could spend a night living out a fantasy, what setting would you choose?",
+      "type": "text"
+    },
+    {
+      "id": "fantasy-shared-2",
+      "text": "What roleplay would you try if you felt completely safe and desired?",
+      "type": "text"
+    },
+    {
+      "id": "fantasy-shared-3",
+      "text": "Would you enjoy being watched, watching, or both?",
+      "type": "text"
+    },
+    {
+      "id": "fantasy-shared-4",
+      "text": "What's a secret desire you've never spoken out loud before?",
+      "type": "text"
+    },
+    {
+      "id": "fantasy-shared-5",
+      "text": "What kind of slow, teasing experience would drive you crazy in a good way?",
+      "type": "text"
+    }
+  ]
+}
